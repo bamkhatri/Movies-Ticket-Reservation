@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Booking - Ticket Reservation</title>
+    <link rel="icon"  href="resources/icon.ico">
+
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="css/card.css">
+    <link rel="stylesheet" type="text/css" href="css/booking.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav id="navigation-bar">
+        <div class="navigation-item">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="index.html">Movies</a></li>
+                <li><a href="user_registration.html">Register</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="booking-details">
+        <div id="trailer">
+            <!-- <iframe width="800" height="500" src="https://www.youtube.com/embed/7bDLIV96LD4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+        </div>
+        <div id="booking-form-poster">
+            <div>
+                <div id="poster">
+
+                </div>
+            </div>
+            <div>
+                <div id="booking-form" title="BOoking Form">
+                    <form id="movieBookingForm">
+                        <div class="form-element seat" title="No Of Seat">
+                            <div class="iconn">
+                                <i class="fa fa-envelope"></i>
+                                <input type="number" name="seat" id="seat"  onkeyup="calcTotal()" placeholder="Seat (eg: 1/2/3)" onfocus="this.placeholder=''" onblur="this.placeholder='Seat (eg: 1/2/3)'" required>
+                            </div>
+                            <span class="errors"></span>
+                        </div>
+                        <div class="form-element price" title="Price">
+                            <div class="iconn">
+                                <i class="fa fa-key"></i>
+                                <select id="price" name="price" onclick="calcTotal()">
+                                    <option value="">Click To Choose</option>
+                                    <option value="250">Rs. 250</option>
+                                    <option value="300">Rs. 300</option>
+                                    <option value="350">Rs. 350</option>
+                                </select>
+                            </div>
+                            <span class="errors"></span>
+                        </div>
+                        <div class="form-element totPrice" title="Total Price">
+                            <div class="iconn">
+                                <i class="fa fa-envelope"></i>
+                                <input type="text" name="totPrice" id="totPrice" required disabled>
+                            </div>
+                            <span class="errors"></span>
+                        </div>
+                        <div id = "divError">
+                        
+                        </div>
+                        <div class="form-element" title="Click To LogIn">
+                            <button type="submit">Book</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+    <footer id="main-footer">
+            <section id="main-section">
+                <ul id="main-footer__items">
+                    <li class="main-footer__item">
+                        <i class="fa fa-map-marker"></i>
+                        <p>Subhidanagar-Tinkune, Kathmandu</>
+                    </li>
+                    <li class="main-footer__item">
+                        <i class="fa fa-phone"></i>
+                        <p>01-00000</p>
+                    </li>
+                    <li class="main-footer__item">
+                        <a href="https://www.facebook.com/panduhimal">
+                            <i class="fa fa-facebook"></i>
+                            <p>Follow us on Facebook</p>
+                        </a>
+                    </li>
+                    <li class="main-footer__item">
+                        <i class="fa fa-envelope"></i>
+                        <p>201731august@gmail.com</p>
+                    </li>
+                    <li class="main-footer__item">
+                        <i class="fa fa-mobile"></i>
+                        <p>+977-9862795766</p>
+                    </li>
+                    <li class="main-footer__item">
+                        <a href="https://www.twitter.com">
+                            <i class="fa fa-twitter-square"></i>
+                            <p>Follow us on Twitter</p>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <section id="footer-copyright">
+                <div id="horizontal-line">
+                </div>
+                <p>Business Company � 2018.  Privacy Policy</p>
+            </section>
+        </footer>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="backend/common.js"></script>
+        <script type="text/javascript" src="js/booking.js"></script>
+
+        
+        <script type="text/javascript">
+           console.log(localStorage.getItem("movieId"));
+        </script>
+
+</body>
+</html>

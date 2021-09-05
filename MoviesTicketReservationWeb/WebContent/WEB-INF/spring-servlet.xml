@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx.xsd
+	   http://www.springframework.org/schema/mvc
+	   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	   http://www.springframework.org/schema/security
+	   http://www.springframework.org/schema/security/spring-security.xsd">
+	<context:component-scan
+		base-package="com.cite.moviesticketreservation.controller" />
+
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.StringHttpMessageConverter" />
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<mvc:cors>
+		<mvc:mapping path="/**" allowed-origins="*"
+			allowed-headers="Content-Type, Access-Control-Allow-Origin,
+	   		Access-Control-Allow-Header,Authorization"
+			allowed-methods="GET,PUT,POST,DELETE" />
+	</mvc:cors>
+
+	<context:annotation-config />
+	<context:property-placeholder
+		location="classpath:app-config.properties" />
+
+	<tx:annotation-driven
+		transaction-manager="txManager" />
+
+	<bean
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		id="txManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driverclassname}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${mysqlusername}" />
+		<property name="password" value="${mysqlpassword}" />
+	</bean>
+
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- Set up Authentication Manager -->
+	<bean id="authTokenProvider"
+		class="com.cite.moviesticketreservation.security.AuthTokenProvider" />
+
+	<security:authentication-manager
+		id="authTokenManager">
+		<security:authentication-provider
+			ref="authTokenProvider" />
+	</security:authentication-manager>
+
+	<!-- Set up Authentication Filters -->
+
+	<bean id="authenticationFilter"
+		class="com.cite.moviesticketreservation.security.AuthenticationFilter">
+		<property name="authenticationManager" ref="authTokenManager" />
+	</bean>
+
+	<bean id="authorizationFilter"
+		class="com.cite.moviesticketreservation.security.AuthorizationFilter">
+		<constructor-arg index="0" ref="authTokenManager" />
+	</bean>
+
+	<security:http create-session="stateless"
+		auto-config="true">
+		<security:intercept-url pattern="/**"
+			access="permitAll" />
+		<security:custom-filter
+			ref="authenticationFilter" before="ANONYMOUS_FILTER" />
+		<security:custom-filter
+			ref="authorizationFilter" after="ANONYMOUS_FILTER" />
+		<security:csrf disabled="true" />
+	</security:http>
+	<bean
+		class="com.cite.moviesticketreservation.dao.BookingDetailDao"
+		id="bookingDetailDao"/>
+		
+	<bean
+		class="com.cite.moviesticketreservation.service.BookingDetailServiceImpl"
+		id="bookingDetailServiceImpl"/>
+	<bean class="com.cite.moviesticketreservation.dao.UserDao"
+		id="userDao" />
+	<bean
+		class="com.cite.moviesticketreservation.service.UserServiceImpl"
+		id="userServiceImpl" />
+	<bean
+		class="com.cite.moviesticketreservation.controller.UserController"
+		id="userController" />
+	<bean 
+		class="com.cite.moviesticketreservation.dao.MoviesDao"
+		id = "moviesDao"/>
+	<bean class="com.cite.moviesticketreservation.service.MoviesServiceImpl"
+		id = "moviesServiceImpl"/>
+		
+	<bean 
+		class="com.cite.moviesticketreservation.dao.FeedbackDao"
+		id = "feedbackDao"/>
+	<bean class="com.cite.moviesticketreservation.service.FeedbackServiceImpl"
+		id = "feedbackServiceImpl"/>
+</beans>
+	   

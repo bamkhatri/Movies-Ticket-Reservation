@@ -1,0 +1,59 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#navigation-bar .navigation-item{
+    background-color: #434547;
+    height: 50px;
+}
+
+#navigation-bar .navigation-item ul{
+    list-style-type: none;
+    width: 36.5%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+#navigation-bar .navigation-item ul li{
+    display: inline-block;
+    margin-right: 30px;
+}
+
+#navigation-bar .navigation-item ul li a{
+    text-decoration: none;
+    cursor: pointer;
+    color: #62bfe6;
+    font-size: 25px;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+#navigation-bar .navigation-item ul li a:hover{
+    background-color: #62bfe6;
+    color: #434547;
+}
+
+.errors{
+    color: red;
+    font-size: 18px;
+}
+
+#navigation-bar .navigation-item ul li a.active{
+    background-color: #62bfe6;
+    color: #434547;
+}
+
+.iconn{
+    display: flex;
+}
+
+#userRegistration i,
+#userLogInForm i,
+#booking-form i{
+    font-size: 31px;
+    color: #62bfe6;
+    margin-right: 7px;
+}
+
+
